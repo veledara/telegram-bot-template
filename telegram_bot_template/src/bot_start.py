@@ -7,9 +7,5 @@ from src.command_handlers import *
 from src.text_handlers import *
 
 
-
 if __name__ == "__main__":
-    try:
-        bot.polling(none_stop=True, timeout=123)
-    except Exception as e:
-        pass
+    bot.polling(none_stop=True, timeout=123)

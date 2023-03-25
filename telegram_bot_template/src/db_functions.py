@@ -2,6 +2,7 @@ import sqlite3 as sql
 import threading
 import time
 import uuid
+from src.messages import MENU_STEP
 
 
 class LockableSqliteConnection(object):
@@ -35,8 +36,7 @@ def generate_id() -> str:
 # Фукнция, возвращающая шаг, на котором сейчас находится пользователь
 def check_step(user_id: str) -> str:
     with lsc:
-        lsc.cursor.execute(
-            f"SELECT step FROM users WHERE id = '{user_id}'")
+        lsc.cursor.execute(f"SELECT step FROM users WHERE id = '{user_id}'")
         result = lsc.cursor.fetchall()[0][0]
     return result
 
@@ -44,8 +44,7 @@ def check_step(user_id: str) -> str:
 # Фукнция, меняющая шаг, на котором сейчас находится пользователь
 def insert_step(n: str, user_id: str) -> None:
     with lsc:
-        lsc.cursor.execute(
-            f"UPDATE users SET step = '{n}' WHERE id = '{user_id}'")
+        lsc.cursor.execute(f"UPDATE users SET step = '{n}' WHERE id = '{user_id}'")
 
 
 # Фукнция, проверяющая есть ли пользователь в базе данных
@@ -61,5 +60,5 @@ def create_user(user_id: str, tg_username: str) -> None:
     with lsc:
         now = int(time.time())
         lsc.cursor.execute(
-            f"INSERT INTO users (id, step, tg_username, join_time) VALUES('{user_id}', 'MENU', '{tg_username}', '{now}')"
+            f"INSERT INTO users (id, step, tg_username, join_time) VALUES('{user_id}', '{MENU_STEP}', '{tg_username}', '{now}')"
         )
