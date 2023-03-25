@@ -1,6 +1,7 @@
 import messages as ms
 from src.settings import bot
-from src.db_functions import check_step, user_exist
+from src.db_functions import check_step
+from src.functions import check_user_permissions
 from telebot.types import Message
 
 
@@ -36,10 +37,3 @@ step_action = {
     ms.SECOND_STEP: second_step_action,
     ms.THIRD_STEP: third_step_action,
 }
-
-
-def check_user_permissions(message: Message) -> bool:
-    if not user_exist(message.chat.id):
-        bot.send_message(message.chat.id, ms.NOT_REGISTERED_MESSAGE)
-        return False
-    return True

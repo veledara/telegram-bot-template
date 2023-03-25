@@ -1,11 +1,12 @@
 import src.messages as ms
-from src.settings import settings, bot
-from src.db_functions import user_exist, insert_step, check_step, create_user
+from src.settings import bot
+from src.db_functions import user_exist, insert_step, create_user
 from src.keyboards import menu_markup
+from telebot.types import Message
 
 
 @bot.message_handler(commands=["start"])
-def handle_start_command(message) -> None:
+def handle_start_command(message: Message) -> None:
     # Если пользователь новый - регистрируем его
     if not user_exist(message.chat.id):
         create_user(message.chat.id, message.from_user.username)
