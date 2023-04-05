@@ -159,5 +159,5 @@ cython_debug/
 #.idea/
 
 .vscode
-#.env
-#databases/
+.env
+databases/

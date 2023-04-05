@@ -10,11 +10,8 @@ packages = [{include = "telegram_bot_template"}]
 python = "^3.11"
 pytelegrambotapi = "^4.10.0"
 pydantic = {extras = ["dotenv"], version = "^1.10.6"}
-
-
-[tool.poetry.group.dev.dependencies]
-autopep8 = "^2.0.2"
 black = "^23.1.0"
+
 
 [build-system]
 requires = ["poetry-core"]
