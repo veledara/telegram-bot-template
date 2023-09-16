@@ -1,5 +1,5 @@
 import telebot as tb
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from typing import Optional
 
 
@@ -8,7 +8,7 @@ class Settings(BaseSettings):
 
     admins: list
 
-    bot: Optional[tb.TeleBot]
+    bot: Optional[tb.TeleBot] = None
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
