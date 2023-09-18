@@ -8,6 +8,10 @@ class Settings(BaseSettings):
 
     admins: list
 
+    db_path: str
+
+    db_name: str
+
     bot: Optional[tb.TeleBot] = None
 
     def __init__(self, *args, **kwargs) -> None:

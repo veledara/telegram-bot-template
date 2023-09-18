@@ -11,6 +11,7 @@ python = "^3.11"
 pytelegrambotapi = "^4.10.0"
 black = "^23.1.0"
 pydantic-settings = "^2.0.3"
+sqlalchemy = "^2.0.20"
 
 
 [build-system]

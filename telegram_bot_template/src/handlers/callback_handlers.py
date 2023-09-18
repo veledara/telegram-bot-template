@@ -1,5 +1,5 @@
-from src.settings import bot
-from src.functions import check_user_permissions
+from settings import bot
+from functions import check_user_permissions
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "hide")
