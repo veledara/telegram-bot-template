@@ -1,8 +1,9 @@
 from contextlib import contextmanager
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, literal
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, literal, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 from settings import settings
 import datetime
+from datetime import timedelta
 import messages as ms
 
 
@@ -78,7 +79,41 @@ class DBFunctions:
             session.add(new_user)
 
 
+class DBAdminFunctions:
+    def __init__(self) -> None:
+        self._db_adapter = DBAdapter()
+
+    def admin_user_count_check(self) -> int:
+        with self._db_adapter.get_session() as session:
+            user_count = session.query(User).count()
+            return user_count
+
+    def admin_count_new_members(self) -> int:
+        with self._db_adapter.get_session() as session:
+            current_time = datetime.datetime.now()
+            yesterday = current_time - timedelta(hours=24)
+            new_members_count = (
+                session.query(User).filter(User.join_time >= yesterday).count()
+            )
+            return new_members_count
+
+    def who_is_on_what_step(self) -> str:
+        with self._db_adapter.get_session() as session:
+            step_counts = (
+                session.query(User.step, func.count(User.user_id))
+                .group_by(User.step)
+                .all()
+            )
+            text = ""
+            all_users_count = session.query(func.count()).scalar()
+            for step, count in step_counts:
+                percentage = (count / all_users_count) * 100
+                text += f"{step} - {percentage:.2f}% - {count}\n"
+            return text
+
+
 db_f = DBFunctions()
+db_adm_f = DBAdminFunctions()
 
 if __name__ == "__main__":
     pass
