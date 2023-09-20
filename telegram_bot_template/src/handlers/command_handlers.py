@@ -1,8 +1,9 @@
-import messages as ms
 from settings import settings, bot
-from db import db_f
-import keyboards as kb
 from functions import check_user_permissions
+from db import db_f
+import messages as ms
+import keyboards as kb
+
 
 
 @bot.message_handler(commands=["start"])
