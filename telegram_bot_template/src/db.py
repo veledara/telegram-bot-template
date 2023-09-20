@@ -1,10 +1,9 @@
+import messages as ms
 from contextlib import contextmanager
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, literal, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 from settings import settings
-import datetime
-from datetime import timedelta
-import messages as ms
+import datetime as dt
 
 
 Base = declarative_base()
@@ -31,7 +30,7 @@ class User(Base):
 
     user_id = Column("user_id", Integer, primary_key=True)
     step = Column("step", String)
-    join_time = Column("join_name", DateTime, default=datetime.datetime.now())
+    join_time = Column("join_name", DateTime, default=dt.datetime.now())
     tg_username = Column("tg_username", String)
 
     def __init__(self, user_id, step, join_time, tg_username):
@@ -73,7 +72,7 @@ class DBFunctions:
             new_user = User(
                 user_id=user_id,
                 step=ms.MENU_STEP,
-                join_time=datetime.datetime.now(),
+                join_time=dt.datetime.now(),
                 tg_username=tg_username,
             )
             session.add(new_user)
@@ -90,8 +89,8 @@ class DBAdminFunctions:
 
     def admin_count_new_members(self) -> int:
         with self._db_adapter.get_session() as session:
-            current_time = datetime.datetime.now()
-            yesterday = current_time - timedelta(hours=24)
+            current_time = dt.datetime.now()
+            yesterday = current_time - dt.timedelta(hours=24)
             new_members_count = (
                 session.query(User).filter(User.join_time >= yesterday).count()
             )

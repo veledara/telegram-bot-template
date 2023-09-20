@@ -1,7 +1,7 @@
-import messages as ms
 from settings import bot
-from db import db_f
 from functions import check_user_permissions
+from db import db_f
+import messages as ms
 
 
 @bot.message_handler(content_types=["text", "photo"])

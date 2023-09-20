@@ -1,6 +1,6 @@
-from messages import NOT_REGISTERED_MESSAGE
-from db import db_f
 from settings import bot
+from db import db_f
+from messages import NOT_REGISTERED_MESSAGE
 
 
 def check_user_permissions(message) -> bool:
